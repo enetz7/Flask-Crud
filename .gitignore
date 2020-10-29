@@ -1,0 +1,10 @@
+.env
+.idea
+.pytest_cache
+.vscode
+__pycache__
+__pypackages__
+assets/.parcel-cache
+assets/node_modules
+assets/yarn-error.log
+static

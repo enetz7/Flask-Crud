@@ -1,0 +1,14 @@
+section {
+    article {
+        height: 100%;
+        &.error-404 {
+            background: url("../images/404.svg") no-repeat center center fixed;
+        }
+        &.error-500 {
+            background: url("../images/500.svg") no-repeat center center fixed;
+        }
+        &.main {
+            background: url("../images/sign_in.svg") no-repeat center center fixed;
+        }
+    }
+}

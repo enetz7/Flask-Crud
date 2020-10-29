@@ -1,0 +1,35 @@
+{
+  "name": "flask-desktop",
+  "version": "0.3.0",
+  "description": "Python module that allows you to convert Flask apps into cross platform desktop apps",
+  "repository": "https://github.com/mmozos/flask-desktop.git",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "cross-env NODE_ENV=development parcel 'templates/**/*.html' --dist-dir ../static --no-autoinstall --no-source-maps --public-url static",
+    "build": "cross-env NODE_ENV=production parcel build 'templates/**/*.html' --dist-dir ../static --no-minify --no-source-maps --public-url static"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "parcel": "^2.0.0-nightly.420",
+    "sass": "^1.27.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "targets": {
+    "default": {
+      "context": "browser"
+    }
+  }
+}

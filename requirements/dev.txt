@@ -1,0 +1,11 @@
+# Everything the developer needs in addition to the production requirements
+-r prod.txt
+
+blinker==1.4
+flake8==3.8.4
+flask-debugtoolbar==0.11.0
+#flask-monitoringdashboard==3.1.0
+isort==5.6.3
+pyqt5-tools==5.15.1.1.7.4
+pytest==6.1.1
+webtest==2.0.35

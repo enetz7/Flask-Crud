@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Python module that allows you to convert Flask apps into cross platform desktop apps">
+        <meta name="keywords" content="Flask, Qt">
+        <!-- Specific Page title goes HERE  -->
+        <title>{% block title %}flask-desktop{% endblock %}</title>
+        <!-- Specific Page CSS goes HERE  -->
+        {% block styles %}
+            <link rel="icon" type="image/svg+xml" href="../images/logo.svg">
+            <link rel="stylesheet" href="../styles/main.sass">
+        {% endblock %}
+    </head>
+    <body class="dark">
+        <div class="wrap">
+            <header>
+                {% block header %}
+                    <img class="logo" src="../images/logo.svg" alt="Logo" />
+                    <h1>flask-desktop</h1>
+                    <h2>An experiment forked from <a target="_blank" href="https://github.com/widdershin/flask-desktop">github</a></h2>
+                {% endblock %}
+            </header>
+            <section>
+                {% block content %}
+                    <!-- Build a custom look that all pages can inherit HERE -->
+                    <article class="main"></article>
+                {% endblock %}
+            </section>
+            <footer>
+                {% block footer %}
+                    Have fun! ッ
+                {% endblock %}
+            </footer>
+        </div>
+        <!-- Specific Page JS goes HERE  -->
+        {% block scripts %}
+            <script src="../scripts/main.js"></script>
+        {% endblock %}
+    </body>
+</html>
