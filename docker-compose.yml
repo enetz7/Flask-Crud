@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+    adminer:
+        container_name: adminer
+        hostname: adminer
+        image: adminer
+#        environment:
+#            - ADMINER_PLUGINS='login-servers tables-filter tinymce'
+        restart: always # run as a service
+        ports:
+            - 8080:8080
+
+    postgres:
+        container_name: postgres
+        hostname: postgres
+        image: postgres:alpine
+        env_file: .env
+        restart: unless-stopped
+        ports:
+            - 5432:5432

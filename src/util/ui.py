@@ -1,54 +1,56 @@
-from os import getcwd, getenv, sep
+"""QApplication and QWebEngineView as done here:
+    https://github.com/Widdershin/flask-desktop/blob/master/webui/webui.py
+"""
+
+from os import getenv
+from socket import AF_INET, SOCK_STREAM, socket
 from sys import argv, exit
 from threading import Thread
 
 from PyQt5 import QtCore, QtGui, QtWebEngineWidgets, QtWidgets
 
-from config import path
 
-HOST = getenv('FLASK_RUN_HOST', '127.0.0.1')
-ICON = '{}{}assets{}images{}logo.svg'.format(getcwd(), sep, sep, sep)
-PORT = getenv('FLASK_RUN_PORT', 5000)
-PROTOCOL = 'https' if getenv('FLASK_RUN_CERT', None) and getenv('FLASK_RUN_KEY', None) else 'http'
-TITLE = path.basename(path.root)
-
-
-# @see https://github.com/Widdershin/flask-desktop/blob/master/webui/webui.py
 class UI:
+    HOST = getenv(key='FLASK_RUN_HOST', default='127.0.0.1')
+    PORT = getenv(key='FLASK_RUN_PORT')
+    PROTOCOL = 'https' if getenv(key='FLASK_RUN_CERT') and getenv(key='FLASK_RUN_KEY') else 'http'
 
     def __init__(self, maximized=False):
-        self.maximized = maximized
-        # create pyqt5 app
+        # create pyqt5 app and view
         self.qt_app = QtWidgets.QApplication(argv)
-        self.qt_app.setApplicationName(TITLE)
-        self.qt_app.setWindowIcon(QtGui.QIcon(ICON))
-        self.qt_view = QtWebEngineWidgets.QWebEngineView(self.qt_app.activeModalWidget())
+        self.qt_view = QtWebEngineWidgets.QWebEngineView(parent=self.qt_app.activeModalWidget())
+        if maximized:
+            self.show = self.qt_view.showMaximized
+        else:
+            self.show = self.qt_view.show
 
     def run(self, app):
-        self.thread(app=app).start()
-        self.run_ui(url='{}://{}:{}'.format(PROTOCOL, HOST, PORT))
+        self.qt_app.setApplicationName(app.config.get('TITLE'))
+        self.qt_app.setWindowIcon(QtGui.QIcon(app.config.get('ICON')))
 
-    def run_ui(self, url):
+        if not self.PORT:
+            # @see https://stackoverflow.com/a/5089963
+            sock = socket(AF_INET, SOCK_STREAM)
+            sock.bind((self.HOST, 0))
+            self.PORT = sock.getsockname()[1]
+            sock.close()
+
+        Thread(daemon=True, kwargs={'debug': app.debug,
+                                    'host': self.HOST,
+                                    'port': self.PORT,
+                                    'threaded': True,
+                                    'use_reloader': False}, target=app.run).start()
+
+        url = '%s://%s:%s' % (self.PROTOCOL, self.HOST, self.PORT)
         self.qt_view.load(QtCore.QUrl(url))
 
         change_setting = self.qt_view.page().settings().setAttribute
         settings = QtWebEngineWidgets.QWebEngineSettings
         change_setting(settings.LocalStorageEnabled, True)
         change_setting(settings.PluginsEnabled, True)
-        if self.maximized:
-            self.qt_view.showMaximized()
-        else:
-            self.qt_view.show()
 
-        # start the app
+        # show the view
+        self.show()
+
+        # start the pyqt5 app
         exit(self.qt_app.exec_())
-
-    @staticmethod
-    def thread(app):
-        return Thread(target=app.run, daemon=True, kwargs={
-            'debug': app.debug,
-            'host': HOST,
-            'port': PORT,
-            'threaded': True,
-            'use_reloader': False
-        })

@@ -1,37 +1,21 @@
+
 header {
-    color: #85c8cb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 1rem;
     right: 0;
     text-align: end;
     top: 0;
 
-    h1 {
-        font-size: 1.5rem;
-        margin: 0;
-    }
-
-    h2 {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.75rem;
-        font-style: italic;
-        font-weight: normal;
-        letter-spacing: 0.1rem;
-
-        a {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.75rem;
-        }
-    }
-
-    img.logo {
+    i.logo {
         display: inherit;
-        height: 2rem;
+        font-size: 2rem;
         position: absolute;
         transition: 3s;
-        width: 2rem;
     }
 
-    &:hover img.logo {
+    &:hover i.logo {
         transform: rotate(1080deg);
     }
 }

@@ -7,20 +7,21 @@
         <meta name="description" content="Python module that allows you to convert Flask apps into cross platform desktop apps">
         <meta name="keywords" content="Flask, Qt">
         <!-- Specific Page title goes HERE  -->
-        <title>{% block title %}flask-desktop{% endblock %}</title>
+        <title>{% block title %}{{title}}{% endblock %}</title>
         <!-- Specific Page CSS goes HERE  -->
         {% block styles %}
-            <link rel="icon" type="image/svg+xml" href="../images/logo.svg">
-            <link rel="stylesheet" href="../styles/main.sass">
+            <link href="../images/logo.svg" rel="icon" type="image/svg+xml">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link href="../styles/main.sass" rel="stylesheet">
         {% endblock %}
     </head>
-    <body class="dark">
+    <body class="{{theme}}">
         <div class="wrap">
             <header>
                 {% block header %}
-                    <img class="logo" src="../images/logo.svg" alt="Logo" />
-                    <h1>flask-desktop</h1>
-                    <h2>An experiment forked from <a target="_blank" href="https://github.com/widdershin/flask-desktop">github</a></h2>
+                    <i class="logo material-icons">{% if theme == 'dark' %}nights_stay{% elif
+                        theme == 'light' %}wb_sunny{% else %}offline_bolt{% endif %}</i>
+                    <h1><a class="logo" href="/" title="Home">{{title}}</a></h1>
                 {% endblock %}
             </header>
             <section>
@@ -31,7 +32,24 @@
             </section>
             <footer>
                 {% block footer %}
-                    Have fun! ッ
+                    <form method="post">
+                        <input name="toggle" type="hidden" value="{{theme}}" />
+                        <input class="material-icons" title="Invert theme" type="submit" value="invert_colors" />
+                    </form>
+                    <div class="footer">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <span class="{{ category }}">{{ message }}</span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="info">Enjoy ッ</span>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <form action="/shutdown" method="post">
+                        <input class="material-icons" title="Shutdown server" type="submit" value="power_settings_new" />
+                    </form>
                 {% endblock %}
             </footer>
         </div>

@@ -1,14 +1,15 @@
 section {
     article {
+        @include background-base;
         height: 100%;
         &.error-404 {
-            background: url("../images/404.svg") no-repeat center center fixed;
+            background-image: url("../images/404.svg");
         }
         &.error-500 {
-            background: url("../images/500.svg") no-repeat center center fixed;
+            background-image: url("../images/500.svg");
         }
         &.main {
-            background: url("../images/sign_in.svg") no-repeat center center fixed;
+            background-image: url("../images/sign_in.svg");
         }
     }
 }

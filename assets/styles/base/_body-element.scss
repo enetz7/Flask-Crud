@@ -1,3 +1,4 @@
+
 $font_family: Inter, Helvetica, Verdana, Geneva, sans-serif;
 
 $font_family_variation: "Inter var experimental", Helvetica, Verdana, Geneva, sans-serif;
@@ -5,6 +6,7 @@ $font_family_variation: "Inter var experimental", Helvetica, Verdana, Geneva, sa
 $font_size: calc(1rem + .25vw);
 
 :root, * {
+    cursor: default;
     font-family: $font_family;
     font-size: $font_size;
     -moz-tab-size: 4;
@@ -36,31 +38,60 @@ html {
 }
 
 body {
+    @include background-base;
     margin: 0;
     min-height: 100vh;
+
     .wrap {
         height: 100%;
         margin: 0 auto;
         header {
-            height: 15%;
+            height: 7.5%;
         }
         section {
-            height: 80%;
+            height: 87.5%;
         }
         footer {
             height: 5%;
         }
     }
-}
 
-body.dark {
-    background: linear-gradient(to bottom, #192740, #35465d);
-}
+    /* @see https://github.com/kitze/twizzle/blob/master/src/styles/themes.js */
 
-body.light {
-    background: linear-gradient(to bottom, #85c8cb, #cddfb7);
-}
+    &.dark {
+        background-image: url("../images/desert-dark.svg");
+        color: #a2b9c7;
+        .wrap {
+            header {
+                border-bottom: 1px solid #192432;
+            }
+            section {
+                box-shadow: 0 0 15px 8px #0a131d;
+            }
+            footer {
+                border-top: 1px solid #192432;
+            }
+        }
+    }
 
-body.no-scroll {
-    overflow: hidden;
+    &.light {
+        background-image: url("../images/desert-light.svg");
+        color: #464646;
+        .wrap {
+            header {
+                border-bottom: 1px solid #b2b2b2;
+            }
+            section {
+                box-shadow: 0 0 16px 0px rgba(18, 26, 35, 0.28);
+            }
+            footer {
+                border-top: 1px solid #b2b2b2;
+            }
+        }
+    }
+
+    &.no-scroll {
+        overflow: hidden;
+    }
+
 }

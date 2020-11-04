@@ -14,9 +14,6 @@ class Anonymous(AnonymousUserMixin):
 
 # @see https://stackoverflow.com/a/37473078
 class User(UserMixin, db.Model):
-    
-
-    __table_args__ = {'extend_existing': True}
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
@@ -24,7 +21,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(100))
     postal_code = db.Column(db.String(10))
     username = db.Column(db.String, unique=True)
-    password = db.Column(db.Binary(128))
+    password = db.Column(db.LargeBinary(128))
     country = db.Column(db.String(100))
     locality = db.Column(db.String(100))
     address = db.Column(db.String(100))

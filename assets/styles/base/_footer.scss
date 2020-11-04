@@ -1,5 +1,22 @@
 
 footer {
-    color: #85c8cb;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     text-align: center;
+
+    .footer {
+        width: 100%;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        input[type="submit"] {
+            background: transparent;
+            border: none;
+            color: inherit;
+        }
+    }
 }

@@ -3,7 +3,6 @@ from util.extensions import bcrypt, db
 from flask_login import AnonymousUserMixin, UserMixin
 # @see https://stackoverflow.com/a/37473078
 class Email(UserMixin,db.Model):
-    __table_args__ = {'extend_existing': True}
     __tablename__ = 'emails'
     
 
